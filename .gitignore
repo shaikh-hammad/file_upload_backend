@@ -31,3 +31,43 @@ build/
 
 ### VS Code ###
 .vscode/
+# Compiled class files
+*.class
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Build directories
+out/
+
+# Maven specific
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+.release/
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Gradle specific
+*.gradle
+.gradle/
+gradle-app.setting
+
+# Logs
+*.log
+logs/
+
+# OS-specific
+*.DS_Store
+Thumbs.db
+
+# IntelliJ IDEA
+.idea/
+
+# VS Code
+
+# Eclipse
+.settings/

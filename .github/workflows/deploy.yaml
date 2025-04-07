@@ -1,0 +1,42 @@
+name: Deploy to unRAID
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        run: |
+          cd backend
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest
+
+      - name: Deploy containers to unRAID via SSH
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Pull the latest image
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest
+            
+            # Update container
+            docker stop fileupload_backend || true && docker rm fileupload_backend || true
+            docker run -p 8080:8080 --dns 8.8.8.8 --dns 8.8.4.4 --network host -d --name fileupload_backend ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest
