@@ -23,7 +23,6 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          cd backend
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/fileupload_backend:latest
 
