@@ -1,0 +1,31 @@
+# Maven build directory
+target/
+
+# IDE files
+.idea/
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+
+# Git files
+.git/
+.gitignore
+.gitattributes
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Logs
+*.log
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Misc
+HELP.md
+README.md 
