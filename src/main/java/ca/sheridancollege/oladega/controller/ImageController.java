@@ -34,7 +34,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/images")
-@CrossOrigin(origins = "http://75.101.191.18", methods = {RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST})
 
 public class ImageController {
 	StorageService stServe;
